@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USER")
+@NoArgsConstructor
+@Data
+@Table(name = "USUARIO")
 public class User {
 
     @Id
@@ -25,7 +25,6 @@ public class User {
 
     private String password;
 
-    @Column
     @ManyToMany
     private List<Role> role;
 }

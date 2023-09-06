@@ -1,13 +1,13 @@
 package com.blog.blog.controller;
 
 
+import com.blog.blog.dto.UserDTO;
 import com.blog.blog.model.Role;
 import com.blog.blog.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/role")
@@ -20,9 +20,18 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public Role create(@RequestBody Role role){
         return roleService.create(role);
+    }
+    @PostMapping("/assign")
+    public void addRoleToUser(@RequestBody UserDTO userDTO){
+        roleService.addRoleToUser(userDTO);
+    }
+
+    @GetMapping("/list")
+    public List<Role> findAll(){
+        return roleService.findAll();
     }
 
 

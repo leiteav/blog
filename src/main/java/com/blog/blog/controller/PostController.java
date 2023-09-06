@@ -3,10 +3,9 @@ package com.blog.blog.controller;
 import com.blog.blog.model.Post;
 import com.blog.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/post")
@@ -21,6 +20,11 @@ public class PostController {
     @PostMapping("/create")
     public Post create(@RequestBody Post post){
         return postService.create(post);
+    }
+
+    @GetMapping("/list")
+    public List<Post> findAll(){
+        return postService.findAll();
     }
 
 

@@ -25,4 +25,9 @@ public class Role {
     public Role(UUID id) {
         this.idRole = id;
     }
+    public Role(String name) {
+        this.name = name;
+    }
+
+
 }
