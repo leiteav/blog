@@ -17,12 +17,12 @@ import lombok.NoArgsConstructor;
 public class Role {
 
     @Id
-    @GeneratedValue
-    private UUID idRole;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idRole;
 
     private String name;
 
-    public Role(UUID id) {
+    public Role(Long id) {
         this.idRole = id;
     }
     public Role(String name) {

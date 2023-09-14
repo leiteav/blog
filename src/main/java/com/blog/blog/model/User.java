@@ -16,8 +16,8 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue
-    private UUID idUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idUser;
 
     private String name;
 
@@ -25,6 +25,6 @@ public class User {
 
     private String password;
 
-    @ManyToMany
-    private List<Role> role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles;
 }
