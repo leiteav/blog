@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/login")
 public class AuthenticationController {
-
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    public AuthenticationController(AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
+    }
 
     @PostMapping
     public ResponseEntity authenticate(UserDTO userDTO){

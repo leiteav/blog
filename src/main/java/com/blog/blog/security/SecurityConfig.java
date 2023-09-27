@@ -13,17 +13,17 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig  {
 
- @Bean
- public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-     return http.csrf().disable()
-             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-             .and().build();
- }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().build();
+    }
 
- @Bean
- public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-     return configuration.getAuthenticationManager();
- }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
 
 
 }

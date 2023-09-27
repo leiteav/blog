@@ -1,14 +1,11 @@
 package com.blog.blog.model;
-import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.*;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
