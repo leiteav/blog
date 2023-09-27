@@ -1,1 +1,1 @@
-
+api.security.token.jwt.secret: ${JWT_SECRET:example_blog}

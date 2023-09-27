@@ -27,10 +27,12 @@ public class RoleController {
     public ResponseEntity<Role> create(@RequestBody Role role){
         return new ResponseEntity<>(userRoleService.createRole(role), HttpStatus.OK);
     }
+/*
     @PostMapping("/assign")
     public ResponseEntity<User> addRoleToUser(@RequestBody UserDTO userDTO){
         return new ResponseEntity<>(userRoleService.addRoleToUser(userDTO), HttpStatus.OK);
     }
+*/
 
     @GetMapping("/list")
     public ResponseEntity<List<Role>> findAll(){

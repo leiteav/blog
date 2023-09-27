@@ -9,6 +9,7 @@ import com.blog.blog.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,16 +19,22 @@ import java.util.Optional;
 
 @Service
 public class UserRoleService {
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     private final ModelMapper modelMapper = new ModelMapper();
 
+
+    private PasswordEncoder passwordEncoder;
+
+
+
     @Autowired
-    public UserRoleService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserRoleService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Role createRole(Role role) {
@@ -38,19 +45,19 @@ public class UserRoleService {
         return roleRepository.findAll();
     }
 
-    public User addRoleToUser(UserDTO userDTO) throws BlogException {
-        if (!userExists(userDTO.getUsername()))
-            throw new BlogException("Usuário não existe.");
-
-        if (!userDTO.getRolesName().isEmpty()) {
-            userDTO.getRolesName().stream().forEach(role -> {
-                if (!roleExists(role))
-                    throw new BlogException("Roles não encontrada.");
-            });
-            return updateRole(userDTO);
-        }
-        throw new BlogException("Role não localizada.");
-    }
+//    public User addRoleToUser(UserDTO userDTO) throws BlogException {
+//        if (!userExists(userDTO.getUsername()))
+//            throw new BlogException("Usuário não existe.");
+//
+//        if (!userDTO.getRolesName().isEmpty()) {
+//            userDTO.getRolesName().stream().forEach(role -> {
+//                if (!roleExists(role))
+//                    throw new BlogException("Roles não encontrada.");
+//            });
+//            return updateRole(userDTO);
+//        }
+//        throw new BlogException("Role não localizada.");
+//    }
 
     private Optional<Role> findRoleByName(String name) {
         return Optional.of(roleRepository.findByName(name));
@@ -82,6 +89,7 @@ public class UserRoleService {
             List<Role> roles = mapperRoles(userDTO.getRolesName());
             final User user = mapperToUser(userDTO);
             user.setRoles(roles);
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             return userRepository.save(user);
         }
         throw new BlogException("Username já existente.");
@@ -96,7 +104,7 @@ public class UserRoleService {
         return Optional.empty();
     }
 
-    Optional<User> findByUsername(String username) {
+    Optional<UserDetails> findByUsername(String username) {
         return Optional.ofNullable(userRepository.findByUsername(username));
     }
 
@@ -108,20 +116,20 @@ public class UserRoleService {
         return userRepository.findAll();
     }
 
-    public User updateUser(UserDTO userDTO) {
-        User user = findByUsername(userDTO.getUsername()).orElseThrow();
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
-
-        return userRepository.save(user);
-    }
-
-    public User updateRole(UserDTO userDTO) {
-        User user = findByUsername(userDTO.getUsername()).orElseThrow();
-        List<Role> roles = mapperRoles(userDTO.getRolesName());
-        user.setRoles(roles);
-        return userRepository.save(user);
-    }
+//    public User updateUser(UserDTO userDTO) {
+//        UserDetails user = findByUsername(userDTO.getUsername()).orElseThrow();
+//        user.setUsername(userDTO.getUsername());
+//        user.setPassword(userDTO.getPassword());
+//
+//        return userRepository.save(user);
+//    }
+//
+//    public User updateRole(UserDTO userDTO) {
+//        User user = findByUsername(userDTO.getUsername()).orElseThrow();
+//        List<Role> roles = mapperRoles(userDTO.getRolesName());
+//        user.setRoles(roles);
+//        return userRepository.save(user);
+//    }
 
     User mapperToUser(UserDTO userDTO) {
         return modelMapper.map(userDTO, User.class);
