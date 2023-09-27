@@ -33,5 +33,4 @@ public class Post {
     @ManyToOne
     private User userPost;
 
-
 }

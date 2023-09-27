@@ -8,6 +8,7 @@ import com.blog.blog.repository.RoleRepository;
 import com.blog.blog.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -85,7 +86,7 @@ public class UserRoleService {
 
     public Optional<UserDTO> findUserByUsernameToDto(String username) {
         if (Objects.nonNull(username)) {
-            final User user = this.userRepository.findByUsername(username);
+            final UserDetails user = this.userRepository.findByUsername(username);
             if (Objects.nonNull(user))
                 return Optional.of(modelMapper.map(user, UserDTO.class));
         }
