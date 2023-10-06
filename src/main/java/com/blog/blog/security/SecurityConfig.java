@@ -32,7 +32,7 @@ public class SecurityConfig  {
         return http.csrf().disable()
                 .headers().frameOptions().disable().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests().antMatchers("/admin/**").authenticated()
+                .and().authorizeRequests().antMatchers("/admin/**").hasRole(Role.ADMIN.name())
                 .and().authorizeRequests().anyRequest().permitAll()
                 .and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
