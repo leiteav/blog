@@ -2,7 +2,7 @@ package com.blog.blog.controller;
 
 import com.blog.blog.dto.UserDTO;
 import com.blog.blog.model.User;
-import com.blog.blog.security.TokenGenerator;
+import com.blog.blog.security.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private AuthenticationManager manager;
-    private TokenGenerator tokenGenerator;
+    private TokenManager tokenGenerator;
 
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager, TokenGenerator generator) {
+    public AuthenticationController(AuthenticationManager authenticationManager, TokenManager generator) {
         this.manager = authenticationManager;
         this.tokenGenerator = generator;
     }
