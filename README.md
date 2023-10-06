@@ -1,1 +1,1 @@
-# blog
+# Generic blog
