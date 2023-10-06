@@ -1,7 +1,6 @@
 package com.blog.blog.service;
 
 import com.blog.blog.dto.UserDTO;
-import com.blog.blog.exception.BlogException;
 import com.blog.blog.model.Role;
 import com.blog.blog.model.User;
 import com.blog.blog.repository.RoleRepository;
@@ -77,7 +76,7 @@ public class UserRoleService {
             rolesName.stream().forEach(roleName -> {
                 final Optional<Role> role = findByName(roleName);
                 if (!role.isPresent())
-                    throw new BlogException("Role inválida.");
+                    throw new RuntimeException("Role inválida.");
                 rolesList.add(role.get());
             });
         }
@@ -92,7 +91,7 @@ public class UserRoleService {
             user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             return userRepository.save(user);
         }
-        throw new BlogException("Username já existente.");
+        throw new RuntimeException("Username já existente.");
     }
 
     public Optional<UserDTO> findUserByUsernameToDto(String username) {

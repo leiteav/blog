@@ -1,8 +1,15 @@
 package com.blog.blog.exception;
 
-public class BlogException extends RuntimeException {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.http.HttpStatus;
 
-    public BlogException(String message){
-        super(message);
+@Data
+public class BlogException {
+    private int status;
+    private String message;
+    public BlogException(String message, HttpStatus status) {
+        this.message = message;
+        this.status = status.value();
     }
 }
